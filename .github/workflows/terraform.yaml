@@ -41,11 +41,11 @@ jobs:
           fi
       
       - name: Terraform Init
-        run: terraform Init
+        run: terraform init
         working-directory: ${{ env.ENV_DIR }}
 
       - name: Terraform Plan
-        run: terraform Plan
+        run: terraform plan
         working-directory: ${{ env.ENV_DIR }}
         env:
           TF_VAR_billing_account_id: ${{ secrets.TF_VAR_billing_account_id }}
