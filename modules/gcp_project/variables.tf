@@ -15,10 +15,10 @@ variable "activate_apis" {
   default = [
     "cloudresourcemanager.googleapis.com",
     "serviceusage.googleapis.com",
+    "cloudbilling.googleapis.com",
     "run.googleapis.com",
     "artifact_registry.googleapis.com",
     "secretmanager.googleapis.com",
-    "iam.googleapis.com",
-    "cloudbilling.googleapis.com"
+    "iam.googleapis.com"
   ]
 }
