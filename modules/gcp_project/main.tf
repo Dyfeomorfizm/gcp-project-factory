@@ -29,7 +29,8 @@ resource "google_project_iam_member" "deployer_roles" {
         "roles/storage.admin",
         "roles/artifactregistry.writer",
         "roles/iam.serviceAccountUser",
-        "roles/secretmanager.admin"
+        "roles/secretmanager.admin",
+        "roles/resourcemanager.projectCreator"
     ])
 
     project = google_project.project.project_id
