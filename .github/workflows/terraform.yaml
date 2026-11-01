@@ -1,0 +1,58 @@
+name: "Terraform Project Factory CI/CD"
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  terraform:
+    name: "Terraform Apply / Plan"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.6.0"
+
+      - name: Select Environment Directory
+        id: select-env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "ENV_DIR=environments/prod" >> $GITHUB_ENV
+            echo "Target: PRODUCTION"
+          else
+            echo "ENV_DIR=environments/dev" >> $GITHUB_ENV
+            echo "Target: DEVELOPMENT"
+          fi
+      
+      - name: Terraform Init
+        run: terraform Init
+        working-directory: ${{ env.ENV_DIR }}
+
+      - name: Terraform Plan
+        run: terraform Plan
+        working-directory: ${{ env.ENV_DIR }}
+        env:
+          TF_VAR_billing_account_id: ${{ secrets.TF_VAR_billing_account_id }}
+      
+      - name: Terraform Apply
+        if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') && github.event_name == 'push'
+        run: terraform apply -auto-approve
+        working-directory: ${{ env.ENV_DIR }}
+        env:
+          TF_VAR_billing_account_id: ${{ secrets.TF_VAR_billing_account_id }}

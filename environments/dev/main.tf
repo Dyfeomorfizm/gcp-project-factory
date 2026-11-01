@@ -17,15 +17,8 @@ provider "google" {
 }
 
 module "gcp_dev_project" {
-    source         = "./modules/gcp_project"
+    source         = "../../modules/gcp_project"
     project_name   = "My Development"
     project_prefix = "my-dev"
-    billing_account_id = var.billing_account_id
-}
-
-module "gcp_prod_project" {
-    source         = "./modules/gcp_project"
-    project_name   = "My Development"
-    project_prefix = "my-prod"
     billing_account_id = var.billing_account_id
 }

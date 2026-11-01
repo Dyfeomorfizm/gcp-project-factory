@@ -13,6 +13,8 @@ variable "billing_account_id" {
 variable "activate_apis" {
   type    = list(string)
   default = [
+    "cloudresourcemanager.googleapis.com",
+    "serviceusage.googleapis.com",
     "run.googleapis.com",
     "artifact_registry.googleapis.com",
     "secretmanager.googleapis.com",
