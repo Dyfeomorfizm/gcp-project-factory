@@ -19,6 +19,6 @@ variable "activate_apis" {
     "artifact_registry.googleapis.com",
     "secretmanager.googleapis.com",
     "iam.googleapis.com",
-    "cloudbillimg.googleapis.com"
+    "cloudbilling.googleapis.com"
   ]
 }
