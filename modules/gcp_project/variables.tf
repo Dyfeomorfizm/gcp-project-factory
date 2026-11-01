@@ -18,6 +18,7 @@ variable "activate_apis" {
     "run.googleapis.com",
     "artifact_registry.googleapis.com",
     "secretmanager.googleapis.com",
-    "iam.googleapis.com"
+    "iam.googleapis.com",
+    "cloudbillimg.googleapis.com"
   ]
 }
